@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"sync"
 
 	"github.com/joho/godotenv"
 )
@@ -14,16 +15,24 @@ type Config struct {
 	AppEnv   string
 }
 
-func LoadConfig() *Config {
-	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found, using environment variable")
-	}
+var once sync.Once
 
-	return &Config{
-		HttpPort: getEnvAsInt("HTTP_PORT", 8080),
-		LogLevel: getEnvAsInt("LOG_LEVEL", 1),
-		AppEnv:   getEnv("APP_ENV", "development"),
-	}
+var config *Config
+
+func Get() *Config {
+	once.Do(func() {
+		if err := godotenv.Load(); err != nil {
+			log.Println("No .env file found, using environment variable")
+		}
+
+		config = &Config{
+			HttpPort: getEnvAsInt("HTTP_PORT", 8080),
+			LogLevel: getEnvAsInt("LOG_LEVEL", 1),
+			AppEnv:   getEnv("APP_ENV", "development"),
+		}
+	})
+
+	return config
 }
 
 func getEnv(key string, defaultValue string) string {
