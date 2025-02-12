@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"kai_security/internal/service/query"
 	"kai_security/internal/service/scan"
 )
 
@@ -18,9 +19,9 @@ func ScanGithub(w http.ResponseWriter, r *http.Request) {
 }
 
 func QueryVulerabilities(w http.ResponseWriter, r *http.Request) {
-	var scanRequest scan.Request
+	var queryRequest query.Request
 
-	err := json.NewDecoder(r.Body).Decode(&scanRequest)
+	err := json.NewDecoder(r.Body).Decode(&queryRequest)
 	if err != nil {
 		JSONErrorResponse(w, err, http.StatusBadRequest)
 		return
