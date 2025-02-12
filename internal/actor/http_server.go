@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"kai_security/internal/config"
+	v1 "kai_security/internal/http_handlers/v1"
 	"kai_security/internal/logger"
 
 	"github.com/gorilla/mux"
@@ -27,6 +28,8 @@ func (h *HttpServer) Start() {
 
 	// TODO
 	// Setup routes
+	v1.RegisterRoutes(h.router)
+
 	// Setup global middleware (i.e, http request middleware)
 
 	server := &http.Server{
