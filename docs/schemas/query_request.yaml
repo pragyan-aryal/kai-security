@@ -1,0 +1,8 @@
+QueryRequest:
+  type: object
+  properties:
+    filters:
+      type: object
+      properties:
+        severity:
+          type: string

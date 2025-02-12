@@ -1,0 +1,5 @@
+ScanResponse:
+  type: object
+  properties:
+    msg:
+      type: string

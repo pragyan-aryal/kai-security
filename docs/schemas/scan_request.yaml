@@ -1,0 +1,9 @@
+ScanRequest:
+  type: object
+  properties:
+    repo:
+      type: string
+    files:
+      type: array
+      items:
+        type: string
