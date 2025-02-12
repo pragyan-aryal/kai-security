@@ -1,10 +1,10 @@
 package scan
 
-type ScanRequest struct {
+type Request struct {
 	Repo  string   `json:"repo"`
 	Files []string `json:"files"`
 }
 
-type ScanResponse struct {
+type Response struct {
 	Message string `json:"msg"`
 }
